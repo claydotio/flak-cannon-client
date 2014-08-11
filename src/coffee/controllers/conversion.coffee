@@ -55,5 +55,5 @@ module.exports = class ConversionCtrl
           return result
 
         defer.resolve(sparklined)
-        
+
     return defer.promise
