@@ -31,15 +31,20 @@ paths =
 
   tests: './test/**/*.coffee'
   root: './src/coffee/root.coffee'
+  mock: './src/coffee/mock.coffee'
   baseStyle: './src/stylus/base.styl'
   dist: './dist/'
   build: './build/'
 
+isMockingApi = false
 
 # start the dev server, and auto-update
 gulp.task 'default', ['server', 'dev', 'watch']
 
 gulp.task 'dev', ['assets:dev', 'test:phantom']
+gulp.task 'mock', (cb) ->
+  isMockingApi = true
+  runSequence 'default', cb
 
 # compile sources: src/* -> build/*
 gulp.task 'assets:dev', [
@@ -115,8 +120,14 @@ errorHandler = ->
 
 # init.coffee --> build/js/bundle.js
 gulp.task 'scripts:dev', ['lint:scripts'], ->
+  entries = [paths.root]
+
+  # Order matters because mock overrides window.XMLHttpRequest
+  if isMockingApi
+    entries = [paths.mock].concat entries
+
   browserify
-    entries: paths.root
+    entries: entries
     extensions: ['.coffee']
   .bundle debug: true
   .on 'error', errorHandler

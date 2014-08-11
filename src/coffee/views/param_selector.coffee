@@ -5,8 +5,8 @@ ParamCtrl = new (require '../controllers/param')()
 
 module.exports = class ParamSelectorView
   constructor: ->
-    @params = ParamCtrl.getParams()
+    @params = ParamCtrl.find()
 
   render: ->
     z '.param-selector', _.map @params(), (param) ->
-      z 'a', param.id
+      z 'div', param.id

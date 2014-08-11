@@ -1,8 +1,11 @@
 z = require 'zorium'
+
 Param = require '../models/param'
 
 module.exports = class ParamCtrl
-  getParams: ->
+  find: ->
     params = z.prop()
-    Param.getList().then params
+    Param.getList()
+    .then params
+    .then -> z.readraw()
     return params

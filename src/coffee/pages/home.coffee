@@ -1,7 +1,7 @@
 z = require 'zorium'
 
 ParamSelectorView = new (require '../views/param_selector')()
-# EventSelectorView = new (require '../views/event_selector')()
+ConversionSelectorView = new (require '../views/conversion_selector')()
 # ResultsView = new (require '../views/results')()
 
 module.exports = class HomePage
@@ -9,7 +9,7 @@ module.exports = class HomePage
     z 'div', [
       z 'div.l-sidebar', [
         z 'div', ParamSelectorView.render()
-        # z 'div', EventSelectorView.render()
+        z 'div', ConversionSelectorView.render()
       ]
       # z 'div.l-content', ResultsView.render()
     ]
