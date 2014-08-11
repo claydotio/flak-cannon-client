@@ -1,6 +1,4 @@
-z = require 'zorium'
-
-config = require '../config'
 resource = require '../lib/resource'
+config = require '../config'
 
-module.exports = resource.setBaseUrl(config.API_URL).all('conversions')
+module.exports = resource.setBaseUrl(config.API_URL)

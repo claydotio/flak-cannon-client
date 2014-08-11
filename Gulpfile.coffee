@@ -96,7 +96,7 @@ gulp.task 'scripts:test', ->
 gulp.task 'server', ->
 
   # Don't actually watch for changes, just run the server
-  nodemon script: 'server.coffee', ext: 'null'
+  nodemon {script: 'server.coffee', ext: 'null', ignore: ['**/*.*']}
 
 
 gulp.task 'watch', ->

@@ -2,6 +2,7 @@ Zock = require 'zock'
 z = require 'zorium'
 
 mock = z.prop(new Zock()
+  .logger (x) -> console.log x
   .base '/api/v2'
   .get '/params'
   .reply 200, [
@@ -18,6 +19,40 @@ mock = z.prop(new Zock()
     {id: 'signup'}
     {id: 'message_friend'}
   ]
+  .get '/conversions/:event'
+  .reply 200, {
+    views: [
+      { param: 'green', count: 1000 }
+      { param: 'red', count: 1100 }
+      { param: 'blue', count: 900 }
+      { param: 'pink', count: 1010 }
+    ]
+    counts: [
+      [
+        { date: new Date(), value: 'green', count: 32 }
+        { date: new Date(), value: 'red', count: 2 }
+        { date: new Date(), value: 'blue', count: 12 }
+        { date: new Date(), value: 'pink', count: 102 }
+      ]
+      [
+        { date: new Date(), value: 'green', count: 2 }
+        { date: new Date(), value: 'blue', count: 8 }
+        { date: new Date(), value: 'pink', count: 70 }
+      ]
+      [
+        { date: new Date(), value: 'green', count: 62 }
+        { date: new Date(), value: 'red', count: 24 }
+        { date: new Date(), value: 'blue', count: 32 }
+        { date: new Date(), value: 'pink', count: 202 }
+      ]
+      [
+        { date: new Date(), value: 'green', count: 132 }
+        { date: new Date(), value: 'red', count: 24 }
+        { date: new Date(), value: 'blue', count: 120 }
+        { date: new Date(), value: 'pink', count: 152 }
+      ]
+    ]
+  }
 )
 
 window.XMLHttpRequest = ->

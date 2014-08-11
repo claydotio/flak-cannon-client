@@ -3,9 +3,11 @@ z = require 'zorium'
 Param = require '../models/param'
 
 module.exports = class ParamCtrl
-  find: ->
-    params = z.prop()
-    Param.getList()
-    .then params
-    .then -> z.readraw()
-    return params
+  getList: ->
+    defer = z.deferred()
+
+    # TODO add error log
+    Param.all('params').getList()
+      .then (params) -> defer.resolve params
+      .then -> z.redraw()
+    return defer.promise
