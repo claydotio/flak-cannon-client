@@ -46,7 +46,7 @@ mock = z.prop(new Zock()
         { date: new Date(), value: 'pink', count: 202 }
       ]
       [
-        { date: new Date(), value: 'green', count: 132 }
+        { date: new Date(), value: 'green', count: 412 }
         { date: new Date(), value: 'red', count: 24 }
         { date: new Date(), value: 'blue', count: 120 }
         { date: new Date(), value: 'pink', count: 152 }

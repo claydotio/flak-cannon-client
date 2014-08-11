@@ -52,9 +52,8 @@
     "loglevel": "./components/loglevel/dist/loglevel.js",
     "q": "./components/q/q.js",
     "restangular": "./components/restangular/dist/restangular.js",
-    "zock": "./components/zock/zock.coffee",
-    "rickshaw": "./components/rickshaw/rickshaw.js",
-    "d3": "./components/d3/d3.js"
+    "zock": "./components/zock/zock.js",
+    "chartjs": "./components/chartjs/Chart.js"
   },
   "browserify": {
     "transform": [

@@ -15,11 +15,11 @@ module.exports = class ConversionCtrl
     return defer.promise
 
   getResults: ({conversion, param, from, to}) ->
-    prop = z.prop([])
+    defer = z.deferred()
+
     Conversion.one 'conversions', conversion
       .get {param: param, from: from, to: to}
       .then (results) ->
-        # ['test', 'sparkline', 'count', 'views', 'p', 'delta']
         viewed = _.map results.views, (view) ->
           test: view.param
           views: view.count
@@ -54,7 +54,6 @@ module.exports = class ConversionCtrl
             _.find(day, {value: result.test})?.count
           return result
 
-      .then prop
-      .then -> z.redraw()
-      .fail (x) -> console.error x
-    return prop
+        defer.resolve(sparklined)
+        
+    return defer.promise

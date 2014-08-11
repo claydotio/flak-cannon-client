@@ -1,4 +1,3 @@
-Zock = require 'zock'
 z = require 'zorium'
 
 window.addEventListener 'fb-flo-reload', -> z.redraw()

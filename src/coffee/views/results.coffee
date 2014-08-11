@@ -4,7 +4,6 @@ Q = require 'q'
 
 ParamCtrl = new (require '../controllers/param')()
 ConversionCtrl = new (require '../controllers/conversion')()
-Sparkline = require '../views/sparkline'
 
 module.exports = class ResultsView
   constructor: ->
@@ -43,18 +42,20 @@ module.exports = class ResultsView
     return "#{year}-#{month}-#{day}"
 
   submit: =>
-    @results = ConversionCtrl.getResults
+    ConversionCtrl.getResults
       param: @param()
       conversion: @conversion()
       from: @from()
       to: @to()
     .then (results) ->
       _.map results, (result) ->
-        result.sparkline = new Sparkline(result.sparkline)
         return result
+    .then @results
+    .then -> z.redraw()
+    .then null, ((x) -> console.error x)
 
   render: ->
-    resultKeys = ['test', 'sparkline', 'count', 'views', 'p', 'delta']
+    resultKeys = ['test', 'count', 'views', 'p', 'delta']
 
     z '.results', [
       z '.results-header', [
@@ -92,10 +93,15 @@ module.exports = class ResultsView
         _.map @results(), (result) ->
           z 'tr', _.map resultKeys, (key) ->
             datum = result[key]
+            color = '#000'
+
             if key is 'delta'
               datum = Math.floor(datum * 100) + '%'
-            if key is 'sparkline'
-              datum = datum.render()
-            z 'td', datum
+              if result.p < 0.05
+                color = '#f00'
+            if key is 'p'
+              datum = datum?.toFixed 2
+
+            z 'td', {style: color: color}, datum
       ]
     ]
