@@ -1,4 +1,4 @@
-class MathService
+class StatMath
   # Determine if two values are statistically different
   # returns the p-value
   #
@@ -62,4 +62,4 @@ class MathService
 
 
 
-module.exports = new MathService()
+module.exports = new StatMath()

@@ -8,6 +8,7 @@ ConversionCtrl = new (require '../controllers/conversion')()
 module.exports = class ResultsView
   constructor: ->
     today = new Date()
+    today.setDate today.getDate() + 1
     lastWeek = new Date()
     lastWeek.setDate lastWeek.getDate() - 7
 

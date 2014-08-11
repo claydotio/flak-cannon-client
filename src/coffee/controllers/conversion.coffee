@@ -2,7 +2,7 @@ z = require 'zorium'
 _ = require 'lodash'
 
 Conversion = require '../models/conversion'
-MathService = require '../services/math'
+StatMath = require '../lib/stat_math'
 
 module.exports = class ConversionCtrl
   getList: ->
@@ -44,7 +44,7 @@ module.exports = class ConversionCtrl
 
         pd = _.map deltad, (result) ->
           unless result.delta is 0
-            result.p = MathService.nMinusOneChiSquare(
+            result.p = StatMath.nMinusOneChiSquare(
               result.count, result.views, best.count, best.views
             )
           return result
