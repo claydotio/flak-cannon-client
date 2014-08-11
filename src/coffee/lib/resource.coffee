@@ -12,7 +12,7 @@ request = (opts) ->
     extract: (xhr, xhrOptions) ->
       data: JSON.parse(xhr.responseText)
       status: xhr.status
-      headers: (x) -> xhr.responseHeaders[x]
+      headers: _.bind xhr.getResponseHeader, xhr
       config: xhrOptions
       statusText: xhr.statusText
     }

@@ -3,8 +3,7 @@ z = require 'zorium'
 
 mock = z.prop(new Zock()
   .logger (x) -> console.log x
-  .base '/api/v2'
-  .get '/params'
+  .get '/users/params'
   .reply 200, [
     {id: 'login_button'}
     {id: 'signup_button'}
