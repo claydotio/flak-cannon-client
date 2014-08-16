@@ -1,4 +1,4 @@
-# Flak Cannon Client
+# Flak Cannon Client [![Build Status](https://drone.io/github.com/claydotio/flak-cannon-client/status.png)](https://drone.io/github.com/claydotio/flak-cannon-client/latest)
 
 ![screenshot](publishing/screenshot.png)
 
