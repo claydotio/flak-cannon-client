@@ -2,7 +2,7 @@ z = require 'zorium'
 _ = require 'lodash'
 Q = require 'q'
 
-ParamCtrl = new (require '../controllers/param')()
+ExperimentCtrl = new (require '../controllers/experiment')()
 ConversionCtrl = new (require '../controllers/conversion')()
 
 module.exports = class ResultsView
@@ -15,7 +15,7 @@ module.exports = class ResultsView
     @from = z.prop @dateString lastWeek
     @to = z.prop @dateString today
 
-    @params = ParamCtrl.getList({from: @from(), to: @to()})
+    @params = ExperimentCtrl.getList({from: @from(), to: @to()})
     @conversions = ConversionCtrl.getList({from: @from(), to: @to()})
 
     @param = z.prop @params[0]?.id

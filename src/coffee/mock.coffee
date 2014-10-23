@@ -3,7 +3,7 @@ z = require 'zorium'
 
 mock = z.prop(new Zock()
   .logger (x) -> console.log x
-  .get '/users/params'
+  .get '/experiments'
   .reply 200, [
     {id: 'login_button'}
     {id: 'signup_button'}
@@ -18,7 +18,7 @@ mock = z.prop(new Zock()
     {id: 'signup'}
     {id: 'message_friend'}
   ]
-  .get '/conversions/:event'
+  .get '/results'
   .reply 200, {
     views: [
       { param: 'green', count: 1000 }

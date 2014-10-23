@@ -13,7 +13,7 @@ serializeQueryString = (obj, prefix) ->
     v = obj[p]
     str.push (
       if typeof v is 'object'
-      then serialize(v, k)
+      then serializeQueryString(v, k)
       else encodeURIComponent(k) + '=' + encodeURIComponent(v)
     )
   str.join '&'
@@ -32,7 +32,7 @@ request = (opts) ->
   if opts.params
     opts.url = opts.url + '?' + serializeQueryString(opts.params)
 
-  z.request(opts)
+  Q z.request(opts)
 
 _.assign(resource, resource.$get[2](request, Q))
 

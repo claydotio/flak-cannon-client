@@ -2,6 +2,7 @@ z = require 'zorium'
 _ = require 'lodash'
 
 Conversion = require '../models/conversion'
+Result = require '../models/result'
 StatMath = require '../lib/stat_math'
 
 module.exports = class ConversionCtrl
@@ -17,8 +18,8 @@ module.exports = class ConversionCtrl
   getResults: ({conversion, param, from, to}) ->
     defer = z.deferred()
 
-    Conversion.one 'conversions', conversion
-      .get {param: param, from: from, to: to}
+    Result.one('results')
+    .get {event: conversion, param: param, from: from, to: to}
       .then (results) ->
         viewed = _.map results.views, (view) ->
           test: view.param
@@ -55,5 +56,6 @@ module.exports = class ConversionCtrl
           return result
 
         defer.resolve(sparklined)
+      .then null, (err) -> console.log err
 
     return defer.promise
