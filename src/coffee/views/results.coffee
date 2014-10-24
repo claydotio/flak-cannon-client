@@ -56,7 +56,7 @@ module.exports = class ResultsView
     .then null, ((x) -> console.error x)
 
   render: ->
-    resultKeys = ['test', 'count', 'views', 'p', 'delta']
+    resultKeys = ['test', 'count', 'views', 'conversion', 'p', 'delta']
 
     z '.results', [
       z '.results-header', [
@@ -96,8 +96,12 @@ module.exports = class ResultsView
             datum = result[key]
             color = '#000'
 
+            if key is 'conversion'
+              datumPercentage = datum * 100
+              datum = Math.round(datumPercentage * 1000) / 1000 + '%'
             if key is 'delta'
-              datum = Math.floor(datum * 100) + '%'
+              datumPercentage = datum * 100
+              datum = Math.round(datumPercentage * 1000) / 1000 + '%'
               if result.p < 0.05
                 color = '#f00'
             if key is 'p'

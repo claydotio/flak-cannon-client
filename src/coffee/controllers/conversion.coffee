@@ -31,6 +31,7 @@ module.exports = class ConversionCtrl
               sum + (if dayData.value is result.test then dayData.count else 0)
             , 0
           , 0
+          result.conversion = result.count / result.views
 
           return result
 
@@ -40,7 +41,7 @@ module.exports = class ConversionCtrl
         best = sorted[0]
 
         deltad = _.map sorted, (result) ->
-          result.delta = result.count / result.views - best.count / best.views
+          result.delta = result.conversion - best.conversion
           return result
 
         pd = _.map deltad, (result) ->
