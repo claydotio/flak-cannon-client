@@ -15,11 +15,11 @@ module.exports = class ConversionCtrl
       .then -> z.redraw()
     return defer.promise
 
-  getResults: ({conversion, param, from, to}) ->
+  getResults: ({conversion, param, from, to, viewCounter}) ->
     defer = z.deferred()
 
     Result.one('results')
-    .get {event: conversion, param: param, from: from, to: to}
+    .get {event: conversion, param, from, to, viewCounter}
       .then (results) ->
         viewed = _.map results.views, (view) ->
           test: view.param

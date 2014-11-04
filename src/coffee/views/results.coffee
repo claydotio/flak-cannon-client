@@ -14,6 +14,7 @@ module.exports = class ResultsView
 
     @from = z.prop @dateString lastWeek
     @to = z.prop @dateString today
+    @viewCounter = z.prop 'default'
 
     @params = ExperimentCtrl.getList({from: @from(), to: @to()})
     @conversions = ConversionCtrl.getList({from: @from(), to: @to()})
@@ -48,6 +49,7 @@ module.exports = class ResultsView
       conversion: @conversion()
       from: @from()
       to: @to()
+      viewCounter: @viewCounter()
     .then (results) ->
       _.map results, (result) ->
         return result
@@ -55,7 +57,7 @@ module.exports = class ResultsView
     .then -> z.redraw()
     .then null, ((x) -> console.error x)
 
-  render: ->
+  render: =>
     resultKeys = ['test', 'count', 'views', 'conversion', 'p', 'delta']
 
     z '.results', [
@@ -83,6 +85,12 @@ module.exports = class ResultsView
         z 'input[type=date]',
           onchange: z.withAttr 'value', @to
           value: @to()
+
+        z 'span.label', 'View Counter'
+        z 'select',
+            {onchange: z.withAttr 'value', @viewCounter},
+            _.map ['default', 'dau', 'd7'], (viewCounter) ->
+              z 'option', {value: viewCounter}, viewCounter
 
         z 'input.go[type=submit][value=(╯°□°)╯︵ ┻━┻]', onclick: @submit
       ]
