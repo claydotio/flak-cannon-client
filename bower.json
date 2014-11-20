@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "lodash": "2.4.1",
-    "zorium.js": "https://github.com/claydotio/zorium.js.git#legacy-mithril",
+    "zorium.js": "https://github.com/claydotio/zorium.git#legacy-mithril",
     "loglevel": "0.6.0",
     "q": "1.0.1",
     "normalize.css": "3.0.1",
