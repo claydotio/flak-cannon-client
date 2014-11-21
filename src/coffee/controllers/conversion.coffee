@@ -21,7 +21,6 @@ module.exports = class ConversionCtrl
     Result.one('results')
     .get {event: conversion, param, from, to, viewCounter}
       .then (results) ->
-        console.log results.counts
         viewed = _.map results.views, (view) ->
           test: view.param
           views: view.count
@@ -52,9 +51,11 @@ module.exports = class ConversionCtrl
             )
           return result
 
+        palette = new Rickshaw.Color.Palette( { scheme: 'munin' } )
         sparklined = _.map pd, (result) ->
           result.sparkline = _.map results.counts, (day) ->
             _.find(day, {value: result.test})?.count
+          result.color = palette.color()
           return result
 
         defer.resolve(sparklined)

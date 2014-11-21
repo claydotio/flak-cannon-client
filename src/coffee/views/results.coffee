@@ -118,16 +118,52 @@ module.exports = class ResultsView
               return z 'td', {config: spark(result)}
 
 
-            z 'td', {style: color: color}, datum
+            z 'td',
+            {style: color: color, background: hexToAlpha result.color, 0.2},
+            datum
       ]
+      z 'div', {config: resultGraph(@results())}
     ]
 
-
-spark = (datum) ->
-
+resultGraph = (results) ->
+  unless results.length
+    return
   ($el, isInit) ->
     if isInit
-      return
+      $el.innerHTML = ''
+
+    min = _.min _.map results, (result) ->
+      _.min _.map result.sparkline
+
+    graph = new Rickshaw.Graph(
+      element: $el
+      width: 800
+      height: 400
+      min: min
+      renderer: 'line'
+      series: _.map results, (result) ->
+        color: result.color
+        data: _.map result.sparkline, (y, i) ->
+          {x: i, y: y or 0}
+    )
+    graph.render()
+
+hexToAlpha = (color, alpha) ->
+  rgb = hexToRgb color
+  "rgba(#{rgb.r}, #{rgb.g}, #{rgb.b}, #{alpha})"
+
+hexToRgb = (hex) ->
+  result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  if result
+    r: parseInt(result[1], 16)
+    g: parseInt(result[2], 16)
+    b: parseInt(result[3], 16)
+  else null
+
+spark = (datum) ->
+  ($el, isInit) ->
+    if isInit
+      $el.innerHTML = ''
 
     graph = new Rickshaw.Graph(
       element: $el
