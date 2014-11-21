@@ -58,7 +58,7 @@ module.exports = class ResultsView
     .then null, ((x) -> console.error x)
 
   render: =>
-    resultKeys = ['test', 'count', 'views', 'conversion', 'p', 'delta']
+    resultKeys = ['test', 'spark', 'count', 'views', 'conversion', 'p', 'delta']
 
     z '.results', [
       z '.results-header', [
@@ -114,7 +114,30 @@ module.exports = class ResultsView
                 color = '#f00'
             if key is 'p'
               datum = datum?.toFixed 2
+            if key is 'spark'
+              return z 'td', {config: spark(result)}
+
 
             z 'td', {style: color: color}, datum
       ]
     ]
+
+
+spark = (datum) ->
+
+  ($el, isInit) ->
+    if isInit
+      return
+
+    graph = new Rickshaw.Graph(
+      element: $el
+      width: 200
+      height: 50
+      renderer: 'line'
+      series: [
+        color: 'steelblue'
+        data: _.map datum.sparkline, (y, i) ->
+          {x: i, y: y or 0}
+      ]
+    )
+    graph.render()
