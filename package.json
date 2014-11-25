@@ -1,7 +1,6 @@
 {
   "name": "flak-cannon-client",
   "private": true,
-  "version": "2.1.1",
   "description": "",
   "main": "server.js",
   "scripts": {
