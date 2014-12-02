@@ -116,7 +116,7 @@ errorHandler = ->
   @emit 'end'
 
 # init.coffee --> build/js/bundle.js
-gulp.task 'scripts:dev', ['lint:scripts'], ->
+gulp.task 'scripts:dev', ->
   entries = [paths.root]
 
   # Order matters because mock overrides window.XMLHttpRequest
