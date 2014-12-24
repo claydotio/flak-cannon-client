@@ -4,6 +4,10 @@
 express = require 'express'
 app = express()
 
+app.use '/healthcheck', (req, res) ->
+  res.json
+    healthy: true
+
 if process.env.NODE_ENV is 'production'
   app.use express['static'](__dirname + '/dist')
 else
