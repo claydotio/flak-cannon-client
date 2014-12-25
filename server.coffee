@@ -2,7 +2,24 @@
 
 # Static assets
 express = require 'express'
+Promise = require 'bluebird'
+rp = require 'request-promise'
+
+config = require './src/coffee/config'
+
+HEALTHCHECK_TIMEOUT = 200
+
 app = express()
+
+app.use '/healthcheck', (req, res) ->
+  Promise.settle [
+    Promise.cast(rp(config.FC_API_URL + '/healthcheck'))
+      .timeout HEALTHCHECK_TIMEOUT
+  ]
+  .spread (flakCannon) ->
+    res.json
+      FlakCannon: flakCannon.isFulfilled()
+      healthy: flakCannon.isFulfilled()
 
 if process.env.NODE_ENV is 'production'
   app.use express['static'](__dirname + '/dist')
