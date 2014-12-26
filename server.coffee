@@ -7,7 +7,7 @@ rp = require 'request-promise'
 
 config = require './src/coffee/config'
 
-HEALTHCHECK_TIMEOUT = 200
+HEALTHCHECK_TIMEOUT = 300
 
 app = express()
 
