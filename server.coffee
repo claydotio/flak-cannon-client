@@ -7,13 +7,13 @@ rp = require 'request-promise'
 
 config = require './src/coffee/config'
 
-HEALTHCHECK_TIMEOUT = 300
+HEALTHCHECK_TIMEOUT = 200
 
 app = express()
 
 app.use '/healthcheck', (req, res) ->
   Promise.settle [
-    Promise.cast(rp(config.FC_API_URL + '/experiments'))
+    Promise.cast(rp(config.FC_API_URL + '/ping'))
       .timeout HEALTHCHECK_TIMEOUT
   ]
   .spread (flakCannon) ->
