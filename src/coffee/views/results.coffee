@@ -89,7 +89,7 @@ module.exports = class ResultsView
         z 'span.label', 'View Counter'
         z 'select',
             {onchange: z.withAttr 'value', @viewCounter},
-            _.map ['default', 'dau', 'd7'], (viewCounter) ->
+            _.map ['default', 'dau', 'd7', 'assigned'], (viewCounter) ->
               z 'option', {value: viewCounter}, viewCounter
 
         z 'input.go[type=submit][value=(╯°□°)╯︵ ┻━┻]', onclick: @submit
