@@ -21,6 +21,9 @@ app.use '/healthcheck', (req, res) ->
       FlakCannon: flakCannon.isFulfilled()
       healthy: flakCannon.isFulfilled()
 
+app.use '/ping', (req, res) ->
+  res.end 'pong'
+
 if process.env.NODE_ENV is 'production'
   app.use express['static'](__dirname + '/dist')
 else
