@@ -13,10 +13,10 @@ $ npm run build
 
 Make sure the [Flak Cannon Server](https://github.com/claydotio/flak-cannon)
 is running somewhere.  
-`FC_API_URL` should be the path to the server
+`PUBLIC_FC_API_URL` should be the path to the server
 
 ```sh
-NODE_ENV=production FC_API_URL=http://localhost:3001 npm start
+NODE_ENV=production PUBLIC_FC_API_URL=http://localhost:3001 npm start
 ```
 
 ## Contributing
